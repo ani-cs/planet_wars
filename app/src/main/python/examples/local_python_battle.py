@@ -14,6 +14,8 @@ from core.game_state import GameParams
 from core.unified_game_runner import UnifiedGameRunner
 from agents.random_agents import PureRandomAgent, CarefulRandomAgent
 from agents.greedy_heuristic_agent import GreedyHeuristicAgent
+from agents.strategic_agent import strategic_agent
+from agents.observing_agent import observing_agent
 from agents.fully_observable_agent_adapter import as_unified
 
 
@@ -28,10 +30,10 @@ def main():
     # CUSTOMIZE THESE - Choose any two local Python agents
     # =============================================================================
 
-    agent1 = as_unified(PureRandomAgent())
+    agent1 = as_unified(observing_agent())
     agent2 = as_unified(CarefulRandomAgent())
 
-    agent1_name = "PureRandomAgent"
+    agent1_name = "ObservingAgent"
     agent2_name = "CarefulRandomAgent"
 
     n_games = 10
