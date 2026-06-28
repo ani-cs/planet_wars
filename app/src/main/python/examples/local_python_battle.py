@@ -31,10 +31,10 @@ def main():
     # =============================================================================
 
     agent1 = as_unified(observing_agent())
-    agent2 = as_unified(CarefulRandomAgent())
+    agent2 = as_unified(strategic_agent())
 
     agent1_name = "ObservingAgent"
-    agent2_name = "CarefulRandomAgent"
+    agent2_name = "strategicAgent"
 
     n_games = 10
     game_params = GameParams(num_planets=20, max_ticks=500)

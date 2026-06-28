@@ -52,14 +52,16 @@ class observing_agent(PlanetWarsPlayer):
                                 if target is None or n.growth_rate/n.n_ships > target.growth_rate/target.n_ships:
                                     target = n
                                     source = s
-                                    num_ships = ships_needed
+                                    if n.n_ships is None: num_ships = 25
+                                    else: num_ships = ships_needed
                         else: 
                             ships_needed = (n.n_ships + n.growth_rate * s.position.distance(n.position))*1.1
                             if s.n_ships > ships_needed:
                                 if target is None or n.growth_rate/n.n_ships > target.growth_rate/target.n_ships:
                                     target = n
                                     source = s
-                                    num_ships = ships_needed
+                                    if n.n_ships is None: num_ships = s.n_ships *0.7
+                                    else: num_ships = ships_needed
             if target is None: return Action.do_nothing()
             return Action(player_id=self.player, source_planet_id=source.id, destination_planet_id=target.id, num_ships=num_ships)
 
@@ -79,14 +81,16 @@ class observing_agent(PlanetWarsPlayer):
                                 if target is None or n.growth_rate/n.n_ships > target.growth_rate/target.n_ships:
                                     target = n
                                     source = s
-                                    num_ships = ships_needed
+                                    if n.n_ships is None: num_ships = 25
+                                    else: num_ships = ships_needed
                             else:
                                 ships_needed = (n.n_ships + n.growth_rate * s.position.distance(n.position))*1.05
                             if s.n_ships > ships_needed:
                                 if target is None or n.growth_rate/n.n_ships > target.growth_rate/target.n_ships:
                                     target = n
                                     source = s
-                                    num_ships = ships_needed
+                                    if n.n_ships is None: num_ships = s.n_ships *0.7
+                                    else: num_ships = ships_needed
                 #Always select first source with available targets
                 if target is not None:
                     return Action(player_id=self.player, source_planet_id=source.id, destination_planet_id=target.id, num_ships=num_ships)
