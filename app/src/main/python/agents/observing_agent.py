@@ -18,8 +18,8 @@ class observing_agent(PlanetWarsPlayer):
         
         diff = my_total_ships - enemy_total_ships
 
-        #radius = min(GameParams.height, GameParams.width) * 0.3
-        radius = 160
+        #radius = min(GameParams.height, GameParams.width) * 0.25
+        radius = 120
        
     
         if diff > 30:
@@ -65,7 +65,7 @@ class observing_agent(PlanetWarsPlayer):
 
         elif strategy == "DEFENSIVE":
             target = None
-            #Select top 10 sources with many ships and high growth rate
+            #Sort sources for many ships and high growth rate
             my_planets.sort(key=lambda p: (p.n_ships * p.growth_rate))
             for s in my_planets:
                 #Look at nearby planets for possible targets
