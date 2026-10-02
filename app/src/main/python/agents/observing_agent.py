@@ -25,9 +25,9 @@ class observing_agent(PlanetWarsPlayer):
         if diff > 30:
             strategy = "OFFENSIVE"
         elif diff < -30:
-            strategy = "DEFENSIVE"
+            strategy = "BALANCED"
         else:
-            strategy = self.last_strategy if self.last_strategy else "DEFENSIVE"
+            strategy = self.last_strategy if self.last_strategy else "BALANCED"
 
         
         if strategy != self.last_strategy:
@@ -37,7 +37,7 @@ class observing_agent(PlanetWarsPlayer):
         
         if strategy == "OFFENSIVE":
             target = None
-            #Take my 10 planets with the most ships
+            #Take my 10 weak planets
             my_planets.sort(key=lambda p: p.n_ships)
             top10_sources = my_planets[:10]
             for s in top10_sources:
@@ -54,7 +54,7 @@ class observing_agent(PlanetWarsPlayer):
                                     source = s
                                     if n.n_ships is None: num_ships = 25
                                     else: num_ships = ships_needed
-                        else: 
+                        else:
                             ships_needed = (n.n_ships + n.growth_rate * s.position.distance(n.position))*1.1
                             if s.n_ships > ships_needed:
                                 if target is None or n.growth_rate/n.n_ships > target.growth_rate/target.n_ships:
@@ -65,7 +65,7 @@ class observing_agent(PlanetWarsPlayer):
             if target is None: return Action.do_nothing()
             return Action(player_id=self.player, source_planet_id=source.id, destination_planet_id=target.id, num_ships=num_ships)
 
-        elif strategy == "DEFENSIVE":
+        elif strategy == "BALANCED":
             target = None
             #Sort sources for many ships and high growth rate
             my_planets.sort(key=lambda p: (p.n_ships * p.growth_rate))
@@ -83,8 +83,8 @@ class observing_agent(PlanetWarsPlayer):
                                     source = s
                                     if n.n_ships is None: num_ships = 25
                                     else: num_ships = ships_needed
-                            else:
-                                ships_needed = (n.n_ships + n.growth_rate * s.position.distance(n.position))*1.05
+                        else:
+                            ships_needed = (n.n_ships + n.growth_rate * s.position.distance(n.position))*1.05
                             if s.n_ships > ships_needed:
                                 if target is None or n.growth_rate/n.n_ships > target.growth_rate/target.n_ships:
                                     target = n
